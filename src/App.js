@@ -14,12 +14,7 @@ class NeighborhoodApp extends React.Component {
             <h1>this is a side</h1>
           </div>
           <div className="col-sm-9 mapContainer">
-            <MapContainer
-              googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyDo68Q39wm_nj3opeW-RdmUI7yykekgekQ&v=3.exp&libraries=geometry,drawing,places`}
-              loadingElement={<div style={{ width: `100%` }} />}
-              containerElement={<div style={{ height: `100%`, width: `100%` }} />}
-				      mapElement={<div className="map" style={{ height: `100%` }} />}
-            />
+            <MapContainer/>
           </div>
 
       </div>
