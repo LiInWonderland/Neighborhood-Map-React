@@ -19,11 +19,11 @@ class MapContainer extends Component {
               this.props.onToogleOpen(
                 event,
                 { lat: marker.location.lat, lng: marker.location.lng },
-                { markerId }
+                { markerId:marker.id}
               );
             }}
           >
-            {this.props.selectedMarkerId === markerId && (
+            {this.props.selectedMarkerId === marker.id && (
               <InfoWindow onCloseClick={this.onToogleClose}>
                 <div className="infoWindowContent">
                   <h5>Name:{marker.name}</h5>
