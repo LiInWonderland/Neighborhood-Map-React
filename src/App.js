@@ -2,131 +2,103 @@ import React, { Component } from "react";
 //import logo from './logo.svg';
 import "./styles/app.min.css";
 import SideBar from "./components/SideBar";
-//import { Navbar, Jumbotron, Button } from 'react-bootstrap';
 //import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import MapContainer from "./components/map";
-import * as placesAPI from "./placesAPI";
+import placesInRiga from "./placesJSON";
+import { Button } from 'react-bootstrap';
+import { TransitionGroup } from 'react-transition-group';
 
 class NeighborhoodApp extends Component {
-  state = {
-    locations: [],
-    allLocations:[],
-    centerMarker: { lat: 56.951045761814754, lng: 24.112655293535504 },
-    defaultCenter: { lat: 56.951045761814754, lng: 24.112655293535504 },
-    //isOpen: false,
-    selectedMarkerId: -1,
-    selectedLocationId:-1,
-    infoIsOpen: false,
-    query: ""
+  constructor(props){
+    super(props)
+    this.state = {
+      locations: placesInRiga,
+      allLocations:placesInRiga,
+      defaultCenter: {  lat: 56.948013, lng: 24.079009 },
+      selectedMarkerId: -1,
+      selectedLocationId:-1,
+      infoIsOpen: false,
+      query: "",
+      showSideBar:true,
+      searchResults:null,
+      isActive: false
+    }
+    this.openSideBar = this.openSideBar.bind(this)
+    this.closeSideBar = this.closeSideBar.bind(this)
+    //this.closeSideBar = this.closeSideBar.bind(this)
+  }
+  onToogleOpen = (event, markerId) => {
+    console.log('markerid: ',markerId.markerId)
+    this.setState({
+      infoIsOpen: true,
+      selectedMarkerId: markerId.markerId,
+      isActive: true
+    });
+    //this.changeMapCenter()
+    console.log('Selected marker id: ',this.state.selectedMarkerId)
   };
-  // get all locations from API
-  getLocations() {
-    placesAPI
-      .getPlaces()
-      .then(locations => {
-        this.setState({ locations });
-        this.setState({allLocations:locations})
-
-      })
-
-      .catch(error => {
-        alert("Error while loading locations.");
-        console.log("Erorr while loading locations");
-      });
+  onToogleClose=()=>{
+    console.log('infowindow need to be closed')
+    this.setState({
+      infoIsOpen: false,
+      selectedMarkerId: -1,
+      isActive: false
+    });
+    console.log('infowindow is closed')
   }
-  componentDidMount() {
-    this.getLocations();
-  }
-
+  updateQuery = query => {
+    this.setState({ query: query });
+    this.controlLocations(query);
+  };
   controlLocations = (searchResults, query) => {
       if (query) {
         this.setState({
           locations: searchResults
         });
-        console.log('atrasti mekletie markeri', this.state.locations)
       } else {
         this.setState({ locations: this.state.allLocations });
-        console.log('vairs nemekle, atpakal visi markeri')
       }
   };
-
-  changeMapCenter = () => {
-    this.setState({
-      defaultCenter: this.state.centerMarker
-    });
-  };
-
-  onToogleOpen = (event, latlng, markerId) => {
-    console.log('markerid: ',markerId)
-    this.setState({
-      centerMarker: latlng,
-      selectedMarkerId: markerId.markerId,
-      infoIsOpen: true
-      //  isOpen:true
-    });
-    console.log('Selected marker id: ',this.state.selectedMarkerId)
-    this.changeMapCenter();
-  };
-
-  onToogleClose() {
-    this.setState({
-      selectedMarkerId: -1
-      //isOpen:false
-    });
+  closeSideBar(){
+    console.log('The link was clicked -close.');
+    this.setState({ showSideBar: false });
   }
-  updateQuery = query => {
-    this.setState({ query: query });
-    this.getSearchedLocations(query);
-    //this.controlLocations(this.state.searchedLocations, query);
-  };
-  getSearchedLocations = query => {
-
-    if (query) {
-      const searchResults = this.state.locations.filter(location => {
-        return location.name.toLowerCase().indexOf(this.state.query) !== -1;
-      });
-      console.log("kāds saka meklet");
-      this.setState({
-        locations: searchResults
-      });
-      // if theres an error
-      if (searchResults.error) {
-        this.state({ locations: [] });
-        console.log("errors meklejot");
-      } else {
-        this.setState({
-          locations: searchResults
-        });
-        console.log("locations ir atrasti", this.state.locations);
-      }
-    } else {
-      this.setState({
-        locations: this.state.allLocations
-      });
-      console.log("neviens neko nemekle");
-    }
-  };
+  openSideBar(){
+    console.log('The link was clicked - open.');
+    this.setState({ showSideBar: true });
+  }
   render() {
+    const searchResults = this.state.locations.filter(location => {
+      return location.name.toLowerCase().indexOf(this.state.query) !== -1;
+    });
     return (
       <div className="container-fluid">
-        <div className="sidebar">
-          <h1>this is a side</h1>
-          <SideBar
-            markers={this.state.locations}
-            selectedMarkerId={this.state.selectedMarkerId}
-            onToogleOpen={this.onToogleOpen}
-            onToogleClose={this.onToogleClose}
-            infoIsOpen={this.state.infoIsOpen}
-            updateQuery={this.updateQuery}
-          />
-        </div>
+        <TransitionGroup>
+          {this.state.showSideBar &&(
+
+                <SideBar
+                  searchResults={searchResults}
+                  selectedMarkerId={this.state.selectedMarkerId}
+                  onToogleOpen={this.onToogleOpen}
+                  onToogleClose={this.onToogleClose}
+                  infoIsOpen={this.state.infoIsOpen}
+                  updateQuery={this.updateQuery}
+                  closeSideBar={this.closeSideBar}
+                  isActive = {this.state.isActive}
+                />
+
+          )}
+          </TransitionGroup>
         <div className="col-12 mapContainer">
+          <Button bsStyle="info" className="openbtn" onClick={this.openSideBar} ><span className="glyphicon glyphicon-chevron-right"></span></Button>
+
           <MapContainer
-            markers={this.state.locations}
+            searchResults={searchResults}
             selectedMarkerId={this.state.selectedMarkerId}
             onToogleOpen={this.onToogleOpen}
             onToogleClose={this.onToogleClose}
             defaultCenter={this.state.defaultCenter}
+            infoIsOpen={this.state.infoIsOpen}
           />
         </div>
       </div>

@@ -9,14 +9,18 @@ p
 .app
   width: 100%
   // map container
+
 .container-fluid .mapContainer
   position: fixed
   width: 100%
 .mapContainer
     height: 100%
+.gm-style.gmnoprint
+  margin-left: 40px
 // side bar
+
 .sidebar
-  width: 300px
+  z-index: 1
   overflow-x: hidden
   height: 100%
   position: absolute
@@ -24,12 +28,30 @@ p
   top: 0
   right: 0
   left: 0
-  z-index: 20
+  z-index: 1
   padding: 10px
+  transition: 0.5s
+.sidebar h2
+  margin-top: 40px
 .list-group a
   cursor: pointer
 .list-group a li:hover,
 .list-group a li:focus,
 .list-group a li:active
   background-color: pink
-// map markers
+.list-group a li .locationInfo
+  background-color: blue
+.sidebar .closebtn
+  float: right
+  right: 0
+  margin-bottom: 10px
+  position: absolute
+  top: 10px
+.openbtn
+  left: 10px
+  top: 10px
+  position: absolute
+  z-index: 1
+
+
+// map
