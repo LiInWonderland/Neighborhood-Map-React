@@ -5,7 +5,8 @@ import SideBar from "./components/SideBar";
 import NavBar from "./components/NavBar";
 //import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import MapContainer from "./components/map";
-import placesInRiga from "./placesJSON";
+import * as PlacesAPI from './placesAPI'
+//import placesInRiga from "./placesJSON";
 import { Button} from 'react-bootstrap';
 import { TransitionGroup } from 'react-transition-group';
 
@@ -13,9 +14,9 @@ class NeighborhoodApp extends Component {
   constructor(props){
     super(props)
     this.state = {
-      locations: placesInRiga,
-      allLocations:placesInRiga,
-      defaultCenter: {  lat: 56.948013, lng: 24.079009 },
+      locations: [],
+      allLocations:[],
+      defaultCenter: {  lat: 56.95149, lng: 24.113304 },
       selectedMarkerId: -1,
       selectedLocationId:-1,
       infoIsOpen: false,
@@ -27,6 +28,12 @@ class NeighborhoodApp extends Component {
     this.openSideBar = this.openSideBar.bind(this)
     this.closeSideBar = this.closeSideBar.bind(this)
     //this.closeSideBar = this.closeSideBar.bind(this)
+  }
+  componentDidMount() {
+    PlacesAPI.getPlaces().then((locations)=>{
+      this.setState({locations: locations,
+      allLocations:locations})
+    })
   }
   onToogleOpen = (event, markerId) => {
     console.log('markerid: ',markerId.markerId)

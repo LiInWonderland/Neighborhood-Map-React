@@ -4,6 +4,7 @@ import { TweenMax } from "gsap/TweenMax";
 import SideLocations from "./SideLocations";
 
 class SideBar extends Component {
+  // this is called at the same time as componentDidMount, for div to enter
   componentWillEnter(callback) {
     const el = this.container;
     TweenMax.fromTo(
@@ -12,14 +13,8 @@ class SideBar extends Component {
       { x: -100, opacity: 0 },
       { x: 0, opacity: 1, onComplete: callback }
     );
-    TweenMax.fromTo(
-      this.props.searchResults,
-      0.5,
-      { y: 0, opacity: 0 },
-      { y: 200, opacity: 1, callback }
-    );
   }
-
+// for children to be removed
   componentWillLeave(callback) {
     const el = this.container;
     TweenMax.fromTo(

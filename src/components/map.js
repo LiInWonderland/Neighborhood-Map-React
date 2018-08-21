@@ -18,7 +18,7 @@ const MyMapComponent = compose(
   withScriptjs,
   withGoogleMap
 )(props => (
-  <GoogleMap defaultCenter={props.defaultCenter} defaultZoom={14}>
+  <GoogleMap defaultCenter={props.defaultCenter} defaultZoom={15}>
     {props.isMarkerShown &&
       props.searchResults.map((marker, markerId) => (
         <Marker
