@@ -2,10 +2,11 @@ import React, { Component } from "react";
 //import logo from './logo.svg';
 import "./styles/app.min.css";
 import SideBar from "./components/SideBar";
+import NavBar from "./components/NavBar";
 //import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import MapContainer from "./components/map";
 import placesInRiga from "./placesJSON";
-import { Button } from 'react-bootstrap';
+import { Button} from 'react-bootstrap';
 import { TransitionGroup } from 'react-transition-group';
 
 class NeighborhoodApp extends Component {
@@ -47,13 +48,17 @@ class NeighborhoodApp extends Component {
     console.log('infowindow is closed')
   }
   updateQuery = query => {
-    this.setState({ query: query });
+    this.setState({ query: query,
+     infoIsOpen: false,
+     isActive: false
+   });
     this.controlLocations(query);
   };
   controlLocations = (searchResults, query) => {
       if (query) {
         this.setState({
-          locations: searchResults
+          locations: searchResults,
+
         });
       } else {
         this.setState({ locations: this.state.allLocations });
@@ -73,6 +78,10 @@ class NeighborhoodApp extends Component {
     });
     return (
       <div className="container-fluid">
+        <NavBar
+          updateQuery={this.updateQuery}
+        />
+
         <TransitionGroup>
           {this.state.showSideBar &&(
 
@@ -82,7 +91,6 @@ class NeighborhoodApp extends Component {
                   onToogleOpen={this.onToogleOpen}
                   onToogleClose={this.onToogleClose}
                   infoIsOpen={this.state.infoIsOpen}
-                  updateQuery={this.updateQuery}
                   closeSideBar={this.closeSideBar}
                   isActive = {this.state.isActive}
                 />

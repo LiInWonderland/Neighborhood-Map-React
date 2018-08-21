@@ -1,6 +1,6 @@
 let placesInRiga = [
           {
-            "id": "1",
+            "id": 1,
             "name":"Ciemakukulis",
             "location": {
               "lat":56.951166,
@@ -8,7 +8,7 @@ let placesInRiga = [
               "address":"Kuldīgas iela 19",
               "city":"Riga"
             },
-            "rating":"4,5"
+            "rating":4.5
           },
           {
             "id": 2,
@@ -19,7 +19,7 @@ let placesInRiga = [
               "address":"Kalnciema iela 17A",
               "city":"Riga"
             },
-            "rating":"4,7"
+            "rating":4.7
           },
           {
             "id": 3,
@@ -30,7 +30,7 @@ let placesInRiga = [
               "address":"Balasta dambis 12",
               "city":"Riga"
             },
-            "rating":"4,4"
+            "rating":4.4
           },
           {
             "id": 4,
@@ -55,7 +55,7 @@ let placesInRiga = [
             "rating":"No rating"
           },
           {
-            "id": "6",
+            "id": 6,
             "name":"Lokāls 'Veldze'",
             "location": {
               "lat":56.942178,
@@ -63,7 +63,7 @@ let placesInRiga = [
               "address":"Kalnciema iela 40F",
               "city":"Riga"
             },
-            "rating":"4,6"
+            "rating":4.6
           }
 ]
 export default placesInRiga
