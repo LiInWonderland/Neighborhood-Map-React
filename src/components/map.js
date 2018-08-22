@@ -18,7 +18,7 @@ const MyMapComponent = compose(
   withScriptjs,
   withGoogleMap
 )(props => (
-  <GoogleMap defaultCenter={props.defaultCenter} defaultZoom={15}>
+  <GoogleMap center={props.centerMap} defaultZoom={15}>
     {props.isMarkerShown &&
       props.searchResults.map((marker, markerId) => (
         <Marker
@@ -29,7 +29,8 @@ const MyMapComponent = compose(
           onClick={event => {
             props.onToogleOpen(
               event,
-              { markerId: marker.id }
+              marker.id,
+              { lat: marker.location.lat, lng: marker.location.lng }
             );
           }}
         >
@@ -52,26 +53,19 @@ class MapContainer extends React.PureComponent {
   state = {
     isMarkerShown: false
   };
-
   componentDidMount() {
     this.delayedShowMarker();
   }
-
+ //show markers on map after 1 second.
   delayedShowMarker = () => {
     setTimeout(() => {
       this.setState({ isMarkerShown: true });
     }, 1000);
   };
-
-  handleMarkerClick = () => {
-    this.setState({ isMarkerShown: false });
-    this.delayedShowMarker();
-  };
-
   render() {
     return (
       <MyMapComponent
-        defaultCenter={this.props.defaultCenter}
+        centerMap={this.props.centerMap}
         isMarkerShown={this.state.isMarkerShown}
         onMarkerClick={this.handleMarkerClick}
         searchResults = {this.props.searchResults}

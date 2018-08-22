@@ -16,9 +16,8 @@ class NeighborhoodApp extends Component {
     this.state = {
       locations: [],
       allLocations:[],
-      defaultCenter: {  lat: 56.95149, lng: 24.113304 },
+      centerMap: {  lat: 56.950900, lng: 24.101161 },
       selectedMarkerId: -1,
-      selectedLocationId:-1,
       infoIsOpen: false,
       query: "",
       showSideBar:true,
@@ -27,33 +26,41 @@ class NeighborhoodApp extends Component {
     }
     this.openSideBar = this.openSideBar.bind(this)
     this.closeSideBar = this.closeSideBar.bind(this)
+    this.onToogleOpen = this.onToogleOpen.bind(this)
     //this.closeSideBar = this.closeSideBar.bind(this)
   }
+  // load foursquare locations
   componentDidMount() {
     PlacesAPI.getPlaces().then((locations)=>{
       this.setState({locations: locations,
       allLocations:locations})
     })
   }
-  onToogleOpen = (event, markerId) => {
-    console.log('markerid: ',markerId.markerId)
+  // load foursquare location details when marker or location on side is clicked
+
+  // open infoWindow, select marker which is clicked and add active class to selected sidebar lcoation
+  // when marker or side location is clicked
+  onToogleOpen (event, markerId, latlng) {
+    console.log('markerid: ',markerId)
     this.setState({
+      selectedMarkerId: markerId,
       infoIsOpen: true,
-      selectedMarkerId: markerId.markerId,
-      isActive: true
+      isActive: true,
+      centerMap: latlng
     });
     //this.changeMapCenter()
     console.log('Selected marker id: ',this.state.selectedMarkerId)
   };
+  // close infoWindow, reset selected marker to default and remove active class on sidebaf location
   onToogleClose=()=>{
-    console.log('infowindow need to be closed')
     this.setState({
       infoIsOpen: false,
       selectedMarkerId: -1,
       isActive: false
     });
-    console.log('infowindow is closed')
+    console.log('infowindows is closed')
   }
+  // close everything and start to search for locations when someone is typing something
   updateQuery = query => {
     this.setState({ query: query,
      infoIsOpen: false,
@@ -65,21 +72,23 @@ class NeighborhoodApp extends Component {
       if (query) {
         this.setState({
           locations: searchResults,
-
         });
       } else {
         this.setState({ locations: this.state.allLocations });
       }
   };
+  // close sidebar when button is clicked
   closeSideBar(){
     console.log('The link was clicked -close.');
     this.setState({ showSideBar: false });
   }
+  // open sidebar when button is clicked
   openSideBar(){
     console.log('The link was clicked - open.');
     this.setState({ showSideBar: true });
   }
   render() {
+    // search form
     const searchResults = this.state.locations.filter(location => {
       return location.name.toLowerCase().indexOf(this.state.query) !== -1;
     });
@@ -100,6 +109,7 @@ class NeighborhoodApp extends Component {
                   infoIsOpen={this.state.infoIsOpen}
                   closeSideBar={this.closeSideBar}
                   isActive = {this.state.isActive}
+                  query={this.state.query}
                 />
 
           )}
@@ -112,7 +122,7 @@ class NeighborhoodApp extends Component {
             selectedMarkerId={this.state.selectedMarkerId}
             onToogleOpen={this.onToogleOpen}
             onToogleClose={this.onToogleClose}
-            defaultCenter={this.state.defaultCenter}
+            centerMap={this.state.centerMap}
             infoIsOpen={this.state.infoIsOpen}
           />
         </div>

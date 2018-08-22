@@ -37,7 +37,8 @@ class SideBar extends Component {
 
           <h4>Search results</h4>
           <p>Found: {this.props.searchResults.length}</p>
-          <ul className="list-group">
+          {this.props.searchResults.length>0 ?
+            <ul className="list-group">
             {this.props.searchResults.map((searchMarker, SearchmarkerId) => (
               <SideLocations
                 searchMarker={searchMarker}
@@ -47,9 +48,11 @@ class SideBar extends Component {
                 onToogleClose={this.props.onToogleClose}
                 infoIsOpen={this.props.infoIsOpen}
                 key = {searchMarker.id}
+                getLocationsDetails={this.props.getLocationsDetails}
               />
             ))}
           </ul>
+          : <h5>There's no places named <i>'{this.props.query}'</i>, please try again!</h5>}
         </div>
       </div>
     );

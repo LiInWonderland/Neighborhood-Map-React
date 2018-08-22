@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {Glyphicon,Button} from 'react-bootstrap';
+import * as PlacesAPI from '../placesAPI'
 
 class SideLocations extends Component {
   componentDidMount(){
@@ -11,6 +12,13 @@ class SideLocations extends Component {
     const starPorcentiRounded = `${(Math.round(starprocenti / 10) * 10)}%`;
     return starPorcentiRounded
   }
+  getLocationsDetails=(location)=>{
+    PlacesAPI.getPlacesDetails(location.markerId).then((data) =>{
+      const place = data.response.venue;
+      return place
+    })
+    console.log(location)
+  }
   render() {
     const searchMarker = this.props.searchMarker
     return (
@@ -21,7 +29,8 @@ class SideLocations extends Component {
             onClick={event => {
               this.props.onToogleOpen(
                 event,
-                { markerId: searchMarker.id }
+                searchMarker.id,
+                { lat: searchMarker.location.lat, lng: searchMarker.location.lng }
               );
             }}
           >
@@ -32,7 +41,7 @@ class SideLocations extends Component {
               this.props.selectedMarkerId === searchMarker.id && (
                 <div id="locationInfo">
                   <Button className="close" bsStyle="link" onClick={this.props.onToogleClose}>X</Button>
-                  <p>{searchMarker.location.address},{searchMarker.location.city} </p>
+                  <p>{searchMarker.location.crossStreet},{searchMarker.location.city} </p>
                   <p>Rating:</p> <div className="stars-empty"> <div className="stars-full" style={{width: this.addStarRating()}}></div></div>
                 </div>
               )}
