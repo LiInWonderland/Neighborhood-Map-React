@@ -3,11 +3,10 @@ import React, { Component } from "react";
 import "./styles/app.min.css";
 import SideBar from "./components/SideBar";
 import NavBar from "./components/NavBar";
-//import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import MapContainer from "./components/map";
 import * as PlacesAPI from './placesAPI'
 //import placesInRiga from "./placesJSON";
-import { Button} from 'react-bootstrap';
+import { Button, Modal, Alert} from 'react-bootstrap';
 import { TransitionGroup } from 'react-transition-group';
 
 class NeighborhoodApp extends Component {
@@ -16,13 +15,15 @@ class NeighborhoodApp extends Component {
     this.state = {
       locations: [],
       allLocations:[],
+      locationDetails:[],
       centerMap: {  lat: 56.950900, lng: 24.101161 },
       selectedMarkerId: -1,
       infoIsOpen: false,
       query: "",
       showSideBar:true,
       searchResults:null,
-      isActive: false
+      isActive: false,
+      hasError: false
     }
     this.openSideBar = this.openSideBar.bind(this)
     this.closeSideBar = this.closeSideBar.bind(this)
@@ -36,27 +37,41 @@ class NeighborhoodApp extends Component {
       allLocations:locations})
     })
   }
-  // load foursquare location details when marker or location on side is clicked
-
   // open infoWindow, select marker which is clicked and add active class to selected sidebar lcoation
   // when marker or side location is clicked
   onToogleOpen (event, markerId, latlng) {
+    this.getLocationsDetails(markerId)
     console.log('markerid: ',markerId)
     this.setState({
       selectedMarkerId: markerId,
       infoIsOpen: true,
       isActive: true,
-      centerMap: latlng
+      centerMap: latlng,
     });
     //this.changeMapCenter()
     console.log('Selected marker id: ',this.state.selectedMarkerId)
   };
+  // load foursquare location details when marker or location on side is clicked
+  getLocationsDetails=(location)=>{
+    PlacesAPI.getPlacesDetails(location).then((data) =>{
+      this.setState({
+        locationDetails: data
+      })
+    })
+    .catch(error =>{
+      this.setState({
+        hasError:true
+      })
+    })
+    console.log(this.state.locationDetails)
+  }
   // close infoWindow, reset selected marker to default and remove active class on sidebaf location
   onToogleClose=()=>{
     this.setState({
       infoIsOpen: false,
       selectedMarkerId: -1,
-      isActive: false
+      isActive: false,
+      locationDetails: []
     });
     console.log('infowindows is closed')
   }
@@ -72,8 +87,8 @@ class NeighborhoodApp extends Component {
       if (query) {
         this.setState({
           locations: searchResults,
-        });
-      } else {
+        })
+      }else {
         this.setState({ locations: this.state.allLocations });
       }
   };
@@ -94,38 +109,50 @@ class NeighborhoodApp extends Component {
     });
     return (
       <div className="container-fluid">
-        <NavBar
-          updateQuery={this.updateQuery}
-        />
 
-        <TransitionGroup>
-          {this.state.showSideBar &&(
-
-                <SideBar
-                  searchResults={searchResults}
-                  selectedMarkerId={this.state.selectedMarkerId}
-                  onToogleOpen={this.onToogleOpen}
-                  onToogleClose={this.onToogleClose}
-                  infoIsOpen={this.state.infoIsOpen}
-                  closeSideBar={this.closeSideBar}
-                  isActive = {this.state.isActive}
-                  query={this.state.query}
-                />
-
-          )}
-          </TransitionGroup>
-        <div className="col-12 mapContainer">
-          <Button bsStyle="info" className="openbtn" onClick={this.openSideBar} ><span className="glyphicon glyphicon-chevron-right"></span></Button>
-
-          <MapContainer
-            searchResults={searchResults}
-            selectedMarkerId={this.state.selectedMarkerId}
-            onToogleOpen={this.onToogleOpen}
-            onToogleClose={this.onToogleClose}
-            centerMap={this.state.centerMap}
-            infoIsOpen={this.state.infoIsOpen}
+          <NavBar
+            updateQuery={this.updateQuery}
           />
-        </div>
+          <TransitionGroup>
+            {this.state.showSideBar &&(
+
+                  <SideBar
+                    searchResults={searchResults}
+                    selectedMarkerId={this.state.selectedMarkerId}
+                    onToogleOpen={this.onToogleOpen}
+                    onToogleClose={this.onToogleClose}
+                    infoIsOpen={this.state.infoIsOpen}
+                    closeSideBar={this.closeSideBar}
+                    isActive = {this.state.isActive}
+                    query={this.state.query}
+                    locationDetails={this.state.locationDetails}
+                  />
+
+            )}
+            </TransitionGroup>
+          <div className="mapContainer">
+            <Button bsStyle="info" className="openbtn" onClick={this.openSideBar} ><span className="glyphicon glyphicon-chevron-right"></span></Button>
+
+            <MapContainer
+              searchResults={searchResults}
+              selectedMarkerId={this.state.selectedMarkerId}
+              onToogleOpen={this.onToogleOpen}
+              onToogleClose={this.onToogleClose}
+              centerMap={this.state.centerMap}
+              infoIsOpen={this.state.infoIsOpen}
+              locationDetails={this.state.locationDetails}
+            />
+          </div>
+
+        {this.state.hasError && (
+          <Modal show={this.state.hasError}>
+            <Alert bsStyle="danger">
+              <h4>Oh snap! You got an error!</h4>
+              <p>
+                Try to refresh the page
+              </p>
+            </Alert>
+          </Modal>)}
       </div>
     );
   }

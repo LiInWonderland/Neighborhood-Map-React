@@ -7,9 +7,10 @@ class SideLocations extends Component {
     const searchMarker = this.props.searchMarker
     return (
 
-        <li key={searchMarker.id}  ref={c => (this.infoContent = c)}>
+        <li key={searchMarker.id}  ref={c => (this.infoContent = c)} id={searchMarker.id}
+          className={this.props.isActive && this.props.selectedMarkerId === searchMarker.id?'listgroupItem info':'list-group-item info'}
+        >
           <a
-            className={this.props.isActive && this.props.selectedMarkerId === searchMarker.id?'listgroupItem':'list-group-item '}
             onClick={event => {
               this.props.onToogleOpen(
                 event,
@@ -18,7 +19,7 @@ class SideLocations extends Component {
               );
             }}
           >
-          <h5> <Glyphicon glyph="cutlery" /> {searchMarker.name}</h5>
+          <div className="nosaukums"><div className="col-sm-1"> <Glyphicon glyph="cutlery" /></div><div className="col-sm-11"><h4>{searchMarker.name}</h4></div></div>
           </a>
 
             {this.props.infoIsOpen &&
@@ -26,6 +27,7 @@ class SideLocations extends Component {
                 <InfoWindow
                   onToogleClose={this.props.onToogleClose}
                   searchMarker = {searchMarker}
+                  locationDetails={this.props.locationDetails}
                 />
 
               )}

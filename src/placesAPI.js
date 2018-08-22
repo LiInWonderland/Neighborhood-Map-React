@@ -17,9 +17,11 @@ if (!token)
   const apiDetails = 'https://api.foursquare.com/v2/venues/';
 
   export const getPlacesDetails = (location)=>{
+    console.log('sak meklet')
   const locationDetails = location
-  const locationDetailUrl = `${apiDetails}${locationDetails}?client_id=${clientID}&client_secret=${clientSecret}&v=${version}`
-    return fetch(locationDetailUrl)
+      console.log('api locations:', location)
+  const pagaiduUrl = `${apiDetails}${locationDetails}?&oauth_token=OTYPHYN4G4HOTOOWFBJXE0W21XRBSF4CF3YQMZIEVJTUDMEG&v=${version}`
+    return fetch(pagaiduUrl)
     .then(res => res.json())
     .then(data => data.response.venue)
   }

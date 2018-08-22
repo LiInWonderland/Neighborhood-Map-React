@@ -28,6 +28,8 @@ ul
   margin-left: 40px
 .gmnoprint
   padding-left: 60px
+.infoWindowContent
+  text-align: right
 // side bar
 
 .sidebar
@@ -48,16 +50,31 @@ ul
   border-bottom: solid 1px
 .list-group a
   cursor: pointer
+.nosaukums
+  width: 100%
+  display: flex
+.nosaukums .col-sm-11
+  padding-right: 0px
 .list-group .list-group-item
   border: none
-  -webkit-transition: background-color 0.5s ease-out
+  background-color: transparent
+  -webkit-transition: background-color 0.5s ease-out, color 0.5s
   -moz-transition: background-color 0.5s ease-out
   -o-transition: background-color 0.5s ease-out
   transition: background-color 0.5s ease-out
 .listgroupItem
   display: block
-  padding: 10px 15px
+  padding: 10px 15px  10px 15px
   background-color: #fff
+  position: fixed
+  z-index: 2
+  top: 100px
+  width: 20%
+  box-shadow: 0px 0px 20px 0px #c9c8c8
+  border-radius: 5px
+  transition-timing-function: ease-in
+.tumss
+  background-color: #646161
 .sidebar .closebtn
   float: right
   right: 0
@@ -75,7 +92,10 @@ ul
   z-index: 1
 #locationInfo
   text-align: center
-
+.locationInfo
+  width: 50%
+.rating
+  width: 50%
 // for rating
 
 .stars-full

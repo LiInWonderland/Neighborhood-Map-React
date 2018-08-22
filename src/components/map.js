@@ -37,10 +37,7 @@ const MyMapComponent = compose(
           {props.infoIsOpen && props.selectedMarkerId === marker.id && (
             <InfoWindow onCloseClick={props.onToogleClose}>
               <div className="infoWindowContent">
-                <h5>Name:{marker.name}</h5>
-                <p>
-                  Adress:{marker.location.address}, {marker.location.city}{" "}
-                </p>
+                <h3>{marker.name}</h3>
               </div>
             </InfoWindow>
           )}
@@ -63,8 +60,10 @@ class MapContainer extends React.PureComponent {
     }, 1000);
   };
   render() {
+
     return (
       <MyMapComponent
+        componentDidUpdate={this.componentDidUpdate}
         centerMap={this.props.centerMap}
         isMarkerShown={this.state.isMarkerShown}
         onMarkerClick={this.handleMarkerClick}

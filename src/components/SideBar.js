@@ -26,7 +26,7 @@ class SideBar extends Component {
   }
   render() {
     return (
-      <div className="col-sm-3 sidebar" ref={c => (this.container = c)}>
+      <div ref={c => (this.container = c)} className={this.props.isActive? 'tumss col-sm-3 sidebar':' col-sm-3 sidebar'}>
         <Button
           className="closebtn"
           onClick={this.props.closeSideBar}
@@ -49,6 +49,7 @@ class SideBar extends Component {
                 infoIsOpen={this.props.infoIsOpen}
                 key = {searchMarker.id}
                 getLocationsDetails={this.props.getLocationsDetails}
+                locationDetails={this.props.locationDetails}
               />
             ))}
           </ul>
