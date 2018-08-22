@@ -1,3 +1,4 @@
+@charset "utf-8"
 html, body, #root, .container-fluid
   height: 100%
   margin: 0px
@@ -22,7 +23,6 @@ ul
   position: fixed
   width: 100%
 .mapContainer
-  padding-top: 50px
   height: 100%
 .gm-style.gmnoprint
   margin-left: 40px
@@ -38,12 +38,11 @@ ul
   height: 100%
   position: absolute
   background-color: #fff
-  top: 0
   right: 0
   left: 0
   padding: 10px
   padding-top: 60px
-  transition: 0.5s
+  -webkit-transition: background-color 0.5s ease-out,
 .sidebar h2
   margin-top: 40px
 .list-group li
@@ -54,37 +53,48 @@ ul
   width: 100%
   display: flex
 .nosaukums .col-sm-11
-  padding-right: 0px
+  padding-right: 20px
 .list-group .list-group-item
   border: none
   background-color: transparent
-  -webkit-transition: background-color 0.5s ease-out, color 0.5s
+  -webkit-transition: background-color 0.5s ease-out
   -moz-transition: background-color 0.5s ease-out
   -o-transition: background-color 0.5s ease-out
   transition: background-color 0.5s ease-out
+.list-group-item span
+  font-size: 18px
+  margin-top: 10px
+  margin-bottom: 10px
 .listgroupItem
   display: block
   padding: 10px 15px  10px 15px
   background-color: #fff
   position: fixed
-  z-index: 2
-  top: 100px
-  width: 20%
+  z-index: 1
   box-shadow: 0px 0px 20px 0px #c9c8c8
   border-radius: 5px
   transition-timing-function: ease-in
+.listgroupItem .nosaukums h4
+  color: #ed24b8
+.listgroupItem .nosaukums span
+  color: #ed24b8
+  font-size: 18px
+  margin-top: 10px
+  margin-bottom: 10px
+.listgroupItem img
+  margin: auto
 .tumss
   background-color: #646161
+.tumss a
+  color: #000
 .sidebar .closebtn
   float: right
   right: 0
   margin-bottom: 10px
   position: relative
-  top: 0
   z-index: 2
 .openbtn
   left: 10px
-  top: 60px
   position: absolute
   z-index: 1
 .close
@@ -116,3 +126,42 @@ ul
   text-align: center
 .stars-empty::before
   content: "\E007 \E007 \E007 \E007 \E007"
+
+// RESPONSIVE DESIGN
+/* Small devices (phones, 600px and down) */
+@media only screen and (max-width: 767px)
+  .listgroupItem
+    width: 92%
+    top: 140px
+  .sidebar .closebtn
+    top: 0px
+  .openbtn
+    top: 130px
+  .mapContainer
+    padding-top: 120px
+  .sidebar
+    top: 70px
+@media only screen and (min-width: 768px) and (max-width:991px)
+  .listgroupItem
+    width: 38%
+    top: 100px
+  .mapContainer
+    padding-top: 50px
+  .openbtn
+    top: 60px
+  .sidebar
+    top: 0px
+  .sidebar .closebtn
+    top: 10px
+@media only screen and (min-width: 1000px)
+  .listgroupItem
+    width: 30%
+    top: 60px
+  .mapContainer
+    padding-top: 50px
+  .openbtn
+    top: 60px
+  .sidebar
+    top: 0px
+  .sidebar .closebtn
+    top: 10px

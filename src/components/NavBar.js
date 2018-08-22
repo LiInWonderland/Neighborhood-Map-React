@@ -9,7 +9,7 @@ class NavBar extends Component {
             Restaurant search
           </Navbar.Brand>
         </Navbar.Header>
-        <Navbar.Collapse>
+
          <Navbar.Form pullLeft>
            <FormGroup>
              <FormControl
@@ -21,7 +21,7 @@ class NavBar extends Component {
             />
            </FormGroup>{' '}
          </Navbar.Form>
-       </Navbar.Collapse>
+      
       </Navbar>
     )
   }

@@ -95,7 +95,8 @@ class NeighborhoodApp extends Component {
   // close sidebar when button is clicked
   closeSideBar(){
     console.log('The link was clicked -close.');
-    this.setState({ showSideBar: false });
+    this.setState({ showSideBar: false
+     });
   }
   // open sidebar when button is clicked
   openSideBar(){
@@ -105,7 +106,7 @@ class NeighborhoodApp extends Component {
   render() {
     // search form
     const searchResults = this.state.locations.filter(location => {
-      return location.name.toLowerCase().indexOf(this.state.query) !== -1;
+      return location.name.toLowerCase().indexOf(this.state.query.toLowerCase()) !== -1;
     });
     return (
       <div className="container-fluid">
@@ -131,7 +132,7 @@ class NeighborhoodApp extends Component {
             )}
             </TransitionGroup>
           <div className="mapContainer">
-            <Button bsStyle="info" className="openbtn" onClick={this.openSideBar} ><span className="glyphicon glyphicon-chevron-right"></span></Button>
+            <Button bsStyle="info" className="openbtn" onClick={this.openSideBar} ><span className="glyphicon glyphicon-menu-right"></span></Button>
 
             <MapContainer
               searchResults={searchResults}
@@ -149,7 +150,7 @@ class NeighborhoodApp extends Component {
             <Alert bsStyle="danger">
               <h4>Oh snap! You got an error!</h4>
               <p>
-                Try to refresh the page
+                Coudn't load Forusquare Api. Try to refresh the page!
               </p>
             </Alert>
           </Modal>)}
