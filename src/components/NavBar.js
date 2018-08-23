@@ -5,9 +5,7 @@ class NavBar extends Component {
     return(
       <Navbar fixedTop>
         <Navbar.Header>
-          <Navbar.Brand>
-            Restaurant search
-          </Navbar.Brand>
+          <h3>Restaurant search</h3>
         </Navbar.Header>
 
          <Navbar.Form pullLeft>
@@ -21,7 +19,7 @@ class NavBar extends Component {
             />
            </FormGroup>{' '}
          </Navbar.Form>
-      
+
       </Navbar>
     )
   }
