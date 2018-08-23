@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import SideBar from "./SideBar";
 import NavBar from "./NavBar";
 import MapContainer from "./map";
-import App from "../App";
 import * as PlacesAPI from '../placesAPI'
 import { Button, Modal, Alert} from 'react-bootstrap';
 import { TransitionGroup } from 'react-transition-group';
@@ -33,6 +32,7 @@ class SearchResults extends Component {
       this.setState({locations: locations,
       allLocations:locations})
     })
+
   }
 
     // open infoWindow, select marker which is clicked and add active class to selected sidebar lcoation
