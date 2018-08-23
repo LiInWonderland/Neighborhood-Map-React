@@ -1,5 +1,6 @@
 import React from "react";
 import { compose, withProps } from "recompose";
+import { Button } from 'react-bootstrap';
 import {
   withScriptjs,
   withGoogleMap,
@@ -38,7 +39,10 @@ const MyMapComponent = compose(
             <InfoWindow onCloseClick={props.onToogleClose}>
               <div className="infoWindowContent">
                 <h3>{marker.name}</h3>
-              </div>
+                {!props.showSideBar &&
+                  (<Button bsStyle="link" onClick={props.openSideBar}>More</Button>)
+                }
+            </div>
             </InfoWindow>
           )}
         </Marker>
@@ -72,6 +76,8 @@ class MapContainer extends React.PureComponent {
         onToogleOpen={this.props.onToogleOpen}
         infoIsOpen={this.props.infoIsOpen}
         onToogleClose={this.props.onToogleClose}
+        openSideBar={this.props.openSideBar}
+        showSideBar={this.props.showSideBar}
       />
     );
   }
