@@ -27,14 +27,32 @@ class SearchResults extends Component {
     this.onToogleOpen = this.onToogleOpen.bind(this)
   }
   // load foursquare locations
-  componentDidMount() {
-    PlacesAPI.getPlaces().then((locations)=>{
-      this.setState({locations: locations,
-      allLocations:locations})
-    })
-
+  componentWillMount() {
+    this.getPlacesLocation()
+    console.log(this.state.centerMap)
   }
+  // get location from selected place in search (placeLatLng) if nedarbojas!!!!
+    getPlacesLocation=()=>{
+      if(this.props.placeLatLng ===  undefined || this.props.placeLatLng.length === 0){
+          alert('Select location')
+      }else{
+        console.log('location exists')
+        this.setState({
+          centerMap:{lat: this.props.placeLatLng.lat, lng:this.props.placeLatLng.lng }
+        })
+        console.log('location exists')
+        this.getMarkers(this.props.placeLatLng.lat, this.props.placeLatLng.lng)
 
+      }
+    }
+    // get markers for current place location
+    getMarkers=(locationLat, locationLng)=>{
+      console.log(locationLat, locationLng)
+      PlacesAPI.getPlaces(locationLat, locationLng).then((locations)=>{
+        this.setState({locations: locations,
+        allLocations:locations})
+      })
+    }
     // open infoWindow, select marker which is clicked and add active class to selected sidebar lcoation
     // when marker or side location is clicked
     onToogleOpen (event, markerId, latlng) {

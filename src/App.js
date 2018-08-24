@@ -66,8 +66,8 @@ const SearchContainer = compose(
             {formatted_address}
             {" at "}
             ({location.lat()}, {location.lng()})
-            <Link to="/restaurant-search">More</Link>
-            <Button onClick={()=>props.getLocation(location)}>Info</Button>
+            <Link to="/restaurant-search">  <Button onClick={()=>props.getLocation(location)}>Info</Button></Link>
+
 
           </li>
         )}
@@ -97,6 +97,7 @@ class App extends Component {
           <Route exact path="/" render={()=>(
             <SearchContainer
               getLocation={this.getLocation}
+              placeLatLng={this.state.placeLatLng}
             />
           )} />
           <Route path="/restaurant-search" render={()=>(
