@@ -29,9 +29,9 @@ This is a React app, created from scrach by Liene Tunne as part of Udacity Nanod
 * [React Router DOM](https://www.npmjs.com/package/react-router-dom)
 * [React Bootstrap](https://react-bootstrap.github.io/)
 * [Bootstrap Glyphicons](https://getbootstrap.com/docs/3.3/components/)
-* [FourSquare API]
-* [Google Places API]
-* [Background Image by Khara Woods on Unsplach]
+* FourSquare API
+* Google Places API
+* Background Image by Khara Woods on Unsplach
 * [Recompose](https://github.com/acdlite/recompose)
 
 ## Compatibility with
