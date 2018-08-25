@@ -1,7 +1,7 @@
 # Neighborhood Map app -  Find your favorite Cafe
 This is a React app, created from scrach by Liene Tunne as part of Udacity Nanodegree "Front End Web Developer"
 
-![Find your favorite Cafe](src/image/print-screen-of-app.png?raw=true "Title")
+![Find your favorite Cafe](src/image/print-screen-of-app.png)
 
 ## Focuses on
 - Responsive design
