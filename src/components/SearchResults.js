@@ -4,7 +4,6 @@ import NavBar from "./NavBar";
 import MapContainer from "./map";
 import * as PlacesAPI from '../placesAPI'
 import { Button } from 'react-bootstrap';
-import { TransitionGroup } from 'react-transition-group';
 
 class SearchResults extends Component {
   constructor(props){
@@ -131,7 +130,7 @@ class SearchResults extends Component {
             updateQuery={this.updateQuery}
             location={this.state.centerMap}
           />
-          <TransitionGroup>
+
             {this.state.showSideBar &&(
 
                   <SideBar
@@ -147,7 +146,7 @@ class SearchResults extends Component {
                   />
 
             )}
-            </TransitionGroup>
+            
 
           {!this.state.showSideBar &&(
             <div className="openbtn">

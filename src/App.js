@@ -13,7 +13,7 @@ const { StandaloneSearchBox } = require("react-google-maps/lib/components/places
 
 const SearchContainer = compose(
   withProps({
-    googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=&key=AIzaSyAQVcKwgvUjxlOR0-_z84qwQVGFMAbr7Yk",
+    googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=&key=YOUR-API-KEY",
     loadingElement: <div style={{ height: `100px` }} />,
     containerElement: <div style={{ height: `100px` }} />,
   }),
