@@ -11,7 +11,7 @@ if (!token)
   export const getPlaces = (locationLat, locationLng)=>{
     const placeLocationLat = locationLat
     const placeLocationLng = locationLng
-    const locationUrl = `${api}client_id=${clientID}&client_secret=${clientSecret}&v=${version}&ll=${placeLocationLat},${placeLocationLng}&query=restaurant`
+    const locationUrl = `${api}client_id=${clientID}&client_secret=${clientSecret}&v=${version}&ll=${placeLocationLat},${placeLocationLng}&query=Cafe`
       return fetch(locationUrl)
       // Code for handling API response
       .then(res => res.json())

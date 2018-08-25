@@ -25,7 +25,7 @@ class NavBar extends Component {
             <Link to="/" aria-label="Back to location search"><Glyphicon glyph="home" />Back</Link>
           </Fade>
 
-      <h3>Restaurant search</h3>
+      <h3>Cafes near me </h3>
 
        </div>
 
@@ -34,7 +34,7 @@ class NavBar extends Component {
              <FormControl role="textbox" aria-label="Search by restaurant name"
                type="text"
                className="form-control"
-               placeholder="Search by restaurant name"
+               placeholder="Search by Café name"
                value={this.props.query}
                onChange={event => this.props.updateQuery(event.target.value)}
             />
