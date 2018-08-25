@@ -13,9 +13,44 @@ ul
   padding: 0px
 .app
   width: 100%
+// app starter template
+#root .jumbotron
+  height: 100%
+  margin: 0px
+  align-items: center
+  display: flex
+
+.jumbotron img
+  max-width: 100%
+  height: auto
+  position: fixed
+  background-position: center
+  background-repeat: no-repeat
+  -webkit-background-size: cover
+  -moz-background-size: cover
+  -o-background-size: cover
+  background-size: cover
+.jumbotron p
+  color: white
+.jumbotron .btn-default
+  background-image: none
+.jumbotron .btn-default:hover,
+.jumbotron .btn-default:focus
+  background-color: #ccc
+#root .jumbotron h1
+  color: #ed24b8
+.jumbotron .col-sm-7
+  margin-left: auto
+  margin-right: auto
+  text-align: center
+  margin-top: -100px
+.jumbotron .col-sm-1 span
+  font-size: 1.7em
+  margin-top: 5px
+  color: #ed24b8
   // Nav bar
 .container-fluid  .navbar-default
-  background-color: white
+  background-color: #fafafa
   background-image: none
 .navbar-header h3
   color: #3131a7
@@ -34,6 +69,20 @@ ul
 .infoWindowContent
   text-align: right
 // side bar
+a.skip
+	color: #fff
+	background-color: #444
+	position: absolute
+	left: -1000em
+	width: 20em
+
+a.skip:active,
+a.skip:focus,
+a.skip:hover
+  left: 0
+  top: 30px
+  width: auto
+  height: auto
 
 .sidebar
   z-index: 1

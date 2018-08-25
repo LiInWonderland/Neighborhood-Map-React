@@ -4,10 +4,14 @@ import { Route } from 'react-router-dom'
 import SearchResults from './components/SearchResults'
 import { Link } from 'react-router-dom'
 import { compose, withProps, lifecycle } from "recompose";
-import { Button } from 'react-bootstrap';
+import { Button, FormControl, Jumbotron, Glyphicon } from 'react-bootstrap';
 import {
   withScriptjs
 } from "react-google-maps";
+import xlarge from './images/restaurant-searchImg.jpg';
+import large from './images/restaurant-searchImg-large.jpg';
+import medium from './images/restaurant-searchImg-medium.jpg';
+import small from './images/restaurant-searchImg-small.jpg';
 const { StandaloneSearchBox } = require("react-google-maps/lib/components/places/StandaloneSearchBox");
 
 const SearchContainer = compose(
@@ -37,49 +41,55 @@ const SearchContainer = compose(
   }),
   withScriptjs
 )(props => (
-      <div data-standalone-searchbox="">
-        <StandaloneSearchBox
-          ref={props.onSearchBoxMounted}
-          bounds={props.bounds}
-          onPlacesChanged={props.onPlacesChanged}
-      >
-        <input
-          type="text"
-          placeholder="Customized your placeholder"
-          style={{
-            boxSizing: `border-box`,
-            border: `1px solid transparent`,
-            width: `240px`,
-            height: `32px`,
-            padding: `0 12px`,
-            borderRadius: `3px`,
-            boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-            fontSize: `14px`,
-            outline: `none`,
-            textOverflow: `ellipses`,
-          }}
-        />
-      </StandaloneSearchBox>
-      <ol>
-        {props.places.map(({ place_id, formatted_address, geometry: { location } }) =>
-          <li key={place_id}>
-            {formatted_address}
-            {" at "}
-            ({location.lat()}, {location.lng()})
-            <Link to="/restaurant-search">  <Button onClick={()=>props.getLocation(location)}>Info</Button></Link>
+
+      <Jumbotron>
+        <img src={large} alt="Restaurant Search - EAT" url="https://unsplash.com/photos/FH3nWjvia-U"/>
+        <div className="col-sm-7">
+           <h1>Restaurant search</h1>
+           <p>Search for location and find restaurant near it!</p>
+           <div className="col-sm-1">
+               <Glyphicon glyph="home" />
+           </div>
+          <div className="col-sm-9">
+            <StandaloneSearchBox
+              ref={props.onSearchBoxMounted}
+              bounds={props.bounds}
+              onPlacesChanged={props.onPlacesChanged}
+            >
+              <FormControl
+                type="text"
+                placeholder="Your location"
+              />
+            </StandaloneSearchBox>
+          </div>
+          <div className="col-sm-2">
+
+              {props.places.map(({ place_id, formatted_address, geometry: { location } }) =>
+
+                  <Link to="/restaurant-search">  <Button onClick={()=>props.getLocation(location)}>GO</Button></Link>
 
 
-          </li>
-        )}
-      </ol>
-    </div>
+              )}
+
+          </div>
+        </div>
+
+    </Jumbotron>
 
 
 ));
 
 class App extends Component {
+
+
   state = {
-    placeLatLng: []
+    placeLatLng: [],
+    currentSrc: ''
+  }
+  onLoad = (event) => {
+    this.setState({
+      currentSrc: event.target.currentSrc
+    });
   }
   getLocation=(placeLocation)=>{
     console.log(placeLocation)
@@ -91,13 +101,13 @@ class App extends Component {
     })
   }
   render() {
-
     return (
         <div id="root">
           <Route exact path="/" render={()=>(
             <SearchContainer
               getLocation={this.getLocation}
               placeLatLng={this.state.placeLatLng}
+              onLoad={this.onLoad}
             />
           )} />
           <Route path="/restaurant-search" render={()=>(

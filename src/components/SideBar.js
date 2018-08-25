@@ -7,19 +7,22 @@ class SideBar extends Component {
   render() {
     return (
       <Col xs={12} sm={5} md={4} className={this.props.isActive? 'tumss sidebar':' sidebar'}>
+        <a href="#sidebarContent" class="skip">Skip map container</a>
         <Button
           className="closebtn"
           onClick={this.props.closeSideBar}
         >
           <span className="glyphicon glyphicon-menu-left" />
         </Button>
-        <div className="list">
+        <div className="list" id="sidebarContent">
 
           <h4>Search results</h4>
           <p>Found: {this.props.searchResults.length}</p>
           {this.props.searchResults.length>0 ?
+
             <ul className="list-group">
             {this.props.searchResults.map((searchMarker, SearchmarkerId) => (
+
               <SideLocations
                 searchMarker={searchMarker}
                 isActive = {this.props.isActive}
@@ -33,7 +36,7 @@ class SideBar extends Component {
               />
             ))}
           </ul>
-          : <h5>There's no places named <i>'{this.props.query}'</i>, please try again!</h5>}
+          : <h5>There's no Restaurants found, please try again!</h5>}
         </div>
       </Col>
     );

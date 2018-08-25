@@ -1,11 +1,15 @@
 import React,  { Component }  from "react";
-import {Navbar, FormGroup, FormControl, Button } from 'react-bootstrap';
+import {Navbar, FormGroup, FormControl, Button, Glyphicon } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 class NavBar extends Component {
+
   render(){
     return(
       <Navbar fixedTop>
+        <Navbar.Form pullLeft>
 
+          <Button bsStyle="link"><Link to="/"><Glyphicon glyph="home" /> Change location</Link></Button>
+        </Navbar.Form>
         <Navbar.Header>
           <h3>Restaurant search</h3>
         </Navbar.Header>
@@ -15,11 +19,10 @@ class NavBar extends Component {
              <FormControl
                type="text"
                className="form-control"
-               placeholder="Search by restaurant name"
+               placeholder="Search by restaurant categorie"
                value={this.props.query}
                onChange={event => this.props.updateQuery(event.target.value)}
             />
-            <Button><Link to="/">Change location</Link></Button>
 
            </FormGroup>{' '}
          </Navbar.Form>

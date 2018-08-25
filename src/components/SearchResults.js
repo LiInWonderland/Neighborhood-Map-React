@@ -52,6 +52,7 @@ class SearchResults extends Component {
         this.setState({locations: locations,
         allLocations:locations})
       })
+
     }
     // open infoWindow, select marker which is clicked and add active class to selected sidebar lcoation
     // when marker or side location is clicked
@@ -64,7 +65,6 @@ class SearchResults extends Component {
         isActive: true,
         centerMap: latlng,
       });
-      //this.changeMapCenter()
       console.log('Selected marker id: ',this.state.selectedMarkerId)
     };
     // load foursquare location details when marker or location on side is clicked
@@ -79,7 +79,6 @@ class SearchResults extends Component {
           hasError:true
         })
       })
-      console.log(this.state.locationDetails)
     }
     // close infoWindow, reset selected marker to default and remove active class on sidebaf location
     onToogleClose=()=>{
@@ -98,6 +97,7 @@ class SearchResults extends Component {
        isActive: false
      });
       this.controlLocations(query);
+
     };
     controlLocations = (searchResults, query) => {
         if (query) {
@@ -121,8 +121,8 @@ class SearchResults extends Component {
     }
   render(){
     // search form
-    const searchResults = this.state.locations.filter(location => {
-      return location.name.toLowerCase().indexOf(this.state.query.toLowerCase()) !== -1;
+    const searchResults = this.state.locations.filter(categorie => {
+      return categorie.name.toLowerCase().indexOf(this.state.query.toLowerCase()) !== -1;
     });
     return(
       <div className="container-fluid">
