@@ -13,7 +13,7 @@ const { StandaloneSearchBox } = require("react-google-maps/lib/components/places
 
 const SearchContainer = compose(
   withProps({
-    googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=&key=AIzaSyAQVcKwgvUjxlOR0-_z84qwQVGFMAbr7Yk",
+    googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=&key=YOUR-API-KEY",
     loadingElement: <div style={{ height: `100px` }} />,
     containerElement: <div style={{ height: `100px` }} />,
   }),
@@ -45,8 +45,8 @@ const SearchContainer = compose(
 
       <Jumbotron role="Search"  style={props.backImage} >
         <div className="col-sm-7">
-           <a href="/"><h1>Restaurant search</h1></a>
-           <p>Search for location and find restaurant near it!</p>
+           <a href="/"><h1>Find your favorite Cafe</h1></a>
+           <p>Search for location and find Café near it!</p>
            <div className="col-sm-2">
                <Glyphicon glyph="home" />
            </div>
@@ -58,7 +58,7 @@ const SearchContainer = compose(
             >
               <FormControl
                 type="text"
-                placeholder="Your location"
+                placeholder="City or café name"
               />
             </StandaloneSearchBox>
           </div>
