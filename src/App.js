@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom'
 import SearchResults from './components/SearchResults'
 import { Link } from 'react-router-dom'
 import { compose, withProps, lifecycle } from "recompose";
-import { Button, FormControl, Jumbotron, Glyphicon } from 'react-bootstrap';
+import { Button, FormControl, Jumbotron, Glyphicon, Alert, Modal } from 'react-bootstrap';
 import {
   withScriptjs
 } from "react-google-maps";
@@ -34,6 +34,10 @@ const SearchContainer = compose(
           });
         },
       })
+    },
+    componentDidCatch(error, info) {
+        console.log(error)
+        alert("There was an Error! Cant load google maps API.")
     },
   }),
   withScriptjs
@@ -76,14 +80,28 @@ const SearchContainer = compose(
 class App extends Component {
   state = {
     placeLatLng: [],
-    currentSrc: ''
+    currentSrc: '',
+    error:false
+  }
+  componentDidMount(){
+    this.checkIfGoogleAPIIsLoaded()
+  }
+  checkIfGoogleAPIIsLoaded(){
+    if(window.google && window.google.maps){
+      this.setState({
+        error:false
+      })
+    }else{
+      this.setState({
+        error:true
+      })
+    }
   }
   onLoad = (event) => {
     this.setState({
       currentSrc: event.target.currentSrc
     });
   }
-
   getLocation=(placeLocation)=>{
     console.log(placeLocation)
     const placelat = (placeLocation.lat())
@@ -111,13 +129,26 @@ class App extends Component {
               onLoad={this.onLoad}
             />
           )} />
+
           <Route path="/restaurant-search" render={()=>(
               <SearchResults
                 getLocation={this.getLocation}
                 placeLatLng={this.state.placeLatLng}
+                checkIfGoogleAPIIsLoaded={this.checkIfGoogleAPIIsLoaded}
               />
 
           )} />
+          {this.state.hasError && (
+            <Modal show={this.state.hasError} role="Alert">
+              <Alert bsStyle="danger">
+                <h4>Oh snap! You got an error!</h4>
+                <p>
+                  Could not load GoogleAPI. Map or Locations won't be loaded or updated!
+                </p>
+                <Link href="/"><Button>Ok, got it!</Button></Link>
+              </Alert>
+            </Modal>
+          )}
         </div>
     );
   }

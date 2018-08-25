@@ -3,7 +3,7 @@ import SideBar from "./SideBar";
 import NavBar from "./NavBar";
 import MapContainer from "./map";
 import * as PlacesAPI from '../placesAPI'
-import { Button, Modal, Alert} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { TransitionGroup } from 'react-transition-group';
 
 class SearchResults extends Component {
@@ -51,8 +51,10 @@ class SearchResults extends Component {
       PlacesAPI.getPlaces(locationLat, locationLng).then((locations)=>{
         this.setState({locations: locations,
         allLocations:locations})
+      }).catch((error) => {
+        alert('Error while getting Locations data from FourSquare API. Locations will not be displayed or loaded')
+        console.log('Error While Getting Locations from FourSquare API')
       })
-
     }
     // open infoWindow, select marker which is clicked and add active class to selected sidebar lcoation
     // when marker or side location is clicked
@@ -75,9 +77,7 @@ class SearchResults extends Component {
         })
       })
       .catch(error =>{
-        this.setState({
-          hasError:true
-        })
+        alert('Error while getting Restaurant details data from FourSquare API. Details will not be displayed or loaded')
       })
     }
     // close infoWindow, reset selected marker to default and remove active class on sidebaf location
@@ -170,16 +170,7 @@ class SearchResults extends Component {
             />
           </div>
 
-        {this.state.hasError && (
-          <Modal show={this.state.hasError} role="Alert">
-            <Alert bsStyle="danger">
-              <h4>Oh snap! You got an error!</h4>
-              <p>
-                Could not load Forusquare Api. Try to refresh the page!
-              </p>
-            </Alert>
-          </Modal>
-        )}
+
       </div>
     );
   }
