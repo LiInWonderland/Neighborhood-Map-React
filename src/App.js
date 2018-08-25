@@ -8,10 +8,7 @@ import { Button, FormControl, Jumbotron, Glyphicon } from 'react-bootstrap';
 import {
   withScriptjs
 } from "react-google-maps";
-import xlarge from './images/restaurant-searchImg.jpg';
 import large from './images/restaurant-searchImg-large.jpg';
-import medium from './images/restaurant-searchImg-medium.jpg';
-import small from './images/restaurant-searchImg-small.jpg';
 const { StandaloneSearchBox } = require("react-google-maps/lib/components/places/StandaloneSearchBox");
 
 const SearchContainer = compose(
@@ -42,15 +39,14 @@ const SearchContainer = compose(
   withScriptjs
 )(props => (
 
-      <Jumbotron>
-        <img src={large} alt="Restaurant Search - EAT" url="https://unsplash.com/photos/FH3nWjvia-U"/>
+      <Jumbotron role="Search"  style={props.backImage} >
         <div className="col-sm-7">
-           <h1>Restaurant search</h1>
+           <a href="/"><h1>Restaurant search</h1></a>
            <p>Search for location and find restaurant near it!</p>
-           <div className="col-sm-1">
+           <div className="col-sm-2">
                <Glyphicon glyph="home" />
            </div>
-          <div className="col-sm-9">
+          <div className="col-sm-8">
             <StandaloneSearchBox
               ref={props.onSearchBoxMounted}
               bounds={props.bounds}
@@ -65,9 +61,7 @@ const SearchContainer = compose(
           <div className="col-sm-2">
 
               {props.places.map(({ place_id, formatted_address, geometry: { location } }) =>
-
-                  <Link to="/restaurant-search">  <Button onClick={()=>props.getLocation(location)}>GO</Button></Link>
-
+                  <Link to="/restaurant-search" key="location" onClick={()=>props.getLocation(location)}><Button tabIndex="-1">GO</Button></Link>
 
               )}
 
@@ -80,8 +74,6 @@ const SearchContainer = compose(
 ));
 
 class App extends Component {
-
-
   state = {
     placeLatLng: [],
     currentSrc: ''
@@ -91,6 +83,7 @@ class App extends Component {
       currentSrc: event.target.currentSrc
     });
   }
+
   getLocation=(placeLocation)=>{
     console.log(placeLocation)
     const placelat = (placeLocation.lat())
@@ -101,10 +94,18 @@ class App extends Component {
     })
   }
   render() {
+    let backImage = {
+      backgroundImage:`url(${large})`,
+      height: "100%",
+      margin: "0px",
+      backgroundPosition: "center",
+      backgroundSize: "cover"
+    }
     return (
         <div id="root">
           <Route exact path="/" render={()=>(
             <SearchContainer
+              backImage={backImage}
               getLocation={this.getLocation}
               placeLatLng={this.state.placeLatLng}
               onLoad={this.onLoad}

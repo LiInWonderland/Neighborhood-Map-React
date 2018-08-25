@@ -7,17 +7,16 @@ class SideBar extends Component {
   render() {
     return (
       <Col xs={12} sm={5} md={4} className={this.props.isActive? 'tumss sidebar':' sidebar'}>
-        <a href="#sidebarContent" class="skip">Skip map container</a>
         <Button
           className="closebtn"
           onClick={this.props.closeSideBar}
         >
           <span className="glyphicon glyphicon-menu-left" />
         </Button>
-        <div className="list" id="sidebarContent">
+        <div className="list" id="sidebarContent" >
 
-          <h4>Search results</h4>
-          <p>Found: {this.props.searchResults.length}</p>
+          <h4 tabIndex="0">Search results</h4>
+          <p tabIndex="0">Found: {this.props.searchResults.length}</p>
           {this.props.searchResults.length>0 ?
 
             <ul className="list-group">

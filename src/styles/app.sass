@@ -13,38 +13,31 @@ ul
   padding: 0px
 .app
   width: 100%
+
 // app starter template
 #root .jumbotron
-  height: 100%
-  margin: 0px
-  align-items: center
   display: flex
-
 .jumbotron img
   max-width: 100%
   height: auto
   position: fixed
-  background-position: center
-  background-repeat: no-repeat
-  -webkit-background-size: cover
-  -moz-background-size: cover
-  -o-background-size: cover
-  background-size: cover
 .jumbotron p
   color: white
 .jumbotron .btn-default
   background-image: none
 .jumbotron .btn-default:hover,
-.jumbotron .btn-default:focus
-  background-color: #ccc
+.jumbotron .btn-default:focus,
+.jumbotron .btn-default:active
+  background-image: none
+  background-color: black
+  color: white
 #root .jumbotron h1
   color: #ed24b8
 .jumbotron .col-sm-7
   margin-left: auto
   margin-right: auto
   text-align: center
-  margin-top: -100px
-.jumbotron .col-sm-1 span
+.jumbotron .col-sm-2 span
   font-size: 1.7em
   margin-top: 5px
   color: #ed24b8
@@ -52,27 +45,40 @@ ul
 .container-fluid  .navbar-default
   background-color: #fafafa
   background-image: none
-.navbar-header h3
+.container .change-location
+  margin-top: 25px
+.navbar .col-sm-7
+  display: flex
+.navbar .col-sm-7 a
+  margin-right: 10px
+.navbar .col-sm-7 span
+  margin-top: 20px
+  margin-bottom: 10px
+  padding-right: 10px
+  font-size: 1.2em
+.navbar .col-sm-7 h4
+  margin-top: 20px
+  padding-right: 10px
+.navbar .col-sm-7 h3
   color: #3131a7
-  margin-top: 10px
+  margin-top: 15px
   // map container
-
+.openButSkip
+  position: absolute
 .container-fluid .mapContainer
   position: fixed
   width: 100%
 .mapContainer
   height: 100%
-.gm-style.gmnoprint
-  margin-left: 40px
-.gmnoprint
-  padding-left: 60px
+
 .infoWindowContent
   text-align: right
 // side bar
 a.skip
-	color: #fff
-	background-color: #444
+	color: #000
+	background-color: transparent
 	position: absolute
+  z-index: 10
 	left: -1000em
 	width: 20em
 
@@ -83,7 +89,7 @@ a.skip:hover
   top: 30px
   width: auto
   height: auto
-
+  position: unset
 .sidebar
   z-index: 1
   overflow-x: hidden
@@ -101,6 +107,9 @@ a.skip:hover
   border-bottom: solid 1px
 .list-group a
   cursor: pointer
+.list-group a:hover,
+.list-group a:focus
+  color: red
 .nosaukums
   width: 100%
   display: flex
@@ -135,7 +144,7 @@ a.skip:hover
   margin-bottom: 10px
 .listgroupItem img
   margin: auto
-  max-height: 350px
+  max-height: 270px
 .tumss
   background-color: #646161
 .tumss a
@@ -191,9 +200,11 @@ a.skip:hover
   .openbtn
     top: 130px
   .mapContainer
-    padding-top: 120px
+    padding-top: 110px
   .sidebar
     top: 70px
+  .jumbotron button
+    margin-top: 10px
 @media only screen and (min-width: 768px) and (max-width:991px)
   .listgroupItem
     width: 38%
@@ -201,7 +212,7 @@ a.skip:hover
   .mapContainer
     padding-top: 50px
   .openbtn
-    top: 60px
+    top: 80px
   .sidebar
     top: 0px
   .sidebar .closebtn
@@ -213,7 +224,7 @@ a.skip:hover
   .mapContainer
     padding-top: 50px
   .openbtn
-    top: 60px
+    top: 80px
   .sidebar
     top: 0px
   .sidebar .closebtn

@@ -1,25 +1,39 @@
 import React,  { Component }  from "react";
-import {Navbar, FormGroup, FormControl, Button, Glyphicon } from 'react-bootstrap';
+import {Navbar, FormGroup, FormControl, Glyphicon, Fade } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 class NavBar extends Component {
-
+  state = {
+    buttonIsShown:false
+  }
+  componentDidMount(){
+    this.showBackButton()
+  }
+  showBackButton=()=>{
+    setTimeout(()=>{
+      this.setState({
+        buttonIsShown:true
+      })
+    },1500);
+  }
   render(){
     return(
       <Navbar fixedTop>
-        <Navbar.Form pullLeft>
 
-          <Button bsStyle="link"><Link to="/"><Glyphicon glyph="home" /> Change location</Link></Button>
-        </Navbar.Form>
-        <Navbar.Header>
-          <h3>Restaurant search</h3>
-        </Navbar.Header>
+        <div className="col-sm-7">
+          <Fade in={this.state.buttonIsShown}>
+            <Link to="/" aria-label="Back to location search"><Glyphicon glyph="home" />Back</Link>
+          </Fade>
+
+      <h3>Restaurant search</h3>
+
+       </div>
 
          <Navbar.Form pullLeft>
            <FormGroup>
-             <FormControl
+             <FormControl role="textbox" aria-label="Search by restaurant name"
                type="text"
                className="form-control"
-               placeholder="Search by restaurant categorie"
+               placeholder="Search by restaurant name"
                value={this.props.query}
                onChange={event => this.props.updateQuery(event.target.value)}
             />

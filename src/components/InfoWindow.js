@@ -8,6 +8,7 @@ class InfoWindow extends Component {
     this.addStarRating()
     this.getRestaurantCategories()
   }
+
   addStarRating=()=>{
     const starTotal = 10
     const starprocenti = (this.props.locationDetails.rating / starTotal)*100
@@ -25,23 +26,24 @@ class InfoWindow extends Component {
     let adrese = searchMarker.location.address ?
     searchMarker.location.address : 'No address';
     const photo = locationDetails.bestPhoto ?
-    `${locationDetails.bestPhoto.prefix}width300${locationDetails.bestPhoto.suffix}` : 'noImage';
+    `${locationDetails.bestPhoto.prefix}width300${locationDetails.bestPhoto.suffix}` : 'No available image';
     const hours = locationDetails.hours ?
     locationDetails.hours.status : 'No available hours'
     const restaurantCategorie = searchMarker.categories.map(categorie=>{
-        return categorie.name
+        return categorie.name?
+        categorie.name: 'No Categorie'
     })
 
     return(
-      <div id="locationInfo">
-        <Button className="close" bsStyle="link" onClick={this.props.onToogleClose}>X</Button>
-        <h5><Glyphicon glyph="paperclip" /> <i>{restaurantCategorie}</i></h5>
-        <h5><Glyphicon glyph="globe" /> {adrese}, {searchMarker.location.city} </h5>
-        <h5><Glyphicon glyph="time" /> {hours}</h5>
+      <div id="locationInfo" role="Listitem">
+        <h5 tabIndex="0"><Glyphicon glyph="paperclip" /> <i>{restaurantCategorie}</i></h5>
+        <h5 tabIndex="0"><Glyphicon glyph="globe" /> {adrese}, {searchMarker.location.city} </h5>
+        <h5 tabIndex="0"><Glyphicon glyph="time" /> {hours}</h5>
         <p></p>
-        <div className="col-sm-12"><Image src={photo} responsive rounded/></div>
-        <div className="col-sm-12"><h5>Rating:</h5></div>
+        <div className="col-sm-12" tabIndex="0"><Image src={photo} alt={searchMarker.name} responsive rounded/></div>
+        <div className="col-sm-12" tabIndex="0"><h5>Rating:</h5></div>
        <div className="stars-empty"> <div className="stars-full" style={{width: this.addStarRating()}}></div></div>
+         <Button className="close" aria-label="Exit details" bsStyle="link" tabIndex="0" onClick={this.props.onToogleClose}>Close</Button>
       </div>
     )
   }

@@ -129,6 +129,7 @@ class SearchResults extends Component {
 
           <NavBar
             updateQuery={this.updateQuery}
+            location={this.state.centerMap}
           />
           <TransitionGroup>
             {this.state.showSideBar &&(
@@ -147,9 +148,15 @@ class SearchResults extends Component {
 
             )}
             </TransitionGroup>
-          <div className="mapContainer">
-            <Button bsStyle="info" className="openbtn" onClick={this.openSideBar} ><span className="glyphicon glyphicon-menu-right"></span></Button>
 
+          {!this.state.showSideBar &&(
+            <div className="openbtn">
+              <Button bsStyle="info" className="openbtn" onClick={this.openSideBar} ><span className="glyphicon glyphicon-menu-right"></span></Button>
+              <a href="#select" className="skip">Skip map container</a>
+          </div>
+          )}
+          <div className="mapContainer" role="application" aria-hidden="true" aria-describedby="info">
+            <p hidden id="info">Application is a map that shows the restaurant location</p>
             <MapContainer
               searchResults={searchResults}
               selectedMarkerId={this.state.selectedMarkerId}
@@ -164,7 +171,7 @@ class SearchResults extends Component {
           </div>
 
         {this.state.hasError && (
-          <Modal show={this.state.hasError}>
+          <Modal show={this.state.hasError} role="Alert">
             <Alert bsStyle="danger">
               <h4>Oh snap! You got an error!</h4>
               <p>
