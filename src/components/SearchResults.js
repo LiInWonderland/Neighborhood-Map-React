@@ -120,7 +120,7 @@ class SearchResults extends Component {
       this.setState({ showSideBar: true });
     }
   render(){
-    // search form
+    // search form, ofcourse - could be better
     const searchResults = this.state.locations.filter(categorie => {
       return categorie.name.toLowerCase().indexOf(this.state.query.toLowerCase()) !== -1;
     });

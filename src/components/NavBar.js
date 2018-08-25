@@ -5,6 +5,7 @@ class NavBar extends Component {
   state = {
     buttonIsShown:false
   }
+  // set timmeout for back button (so user cant swich Links fast - it was causing state error)
   componentDidMount(){
     this.showBackButton()
   }

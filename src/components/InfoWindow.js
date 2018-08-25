@@ -8,13 +8,14 @@ class InfoWindow extends Component {
     this.addStarRating()
     this.getRestaurantCategories()
   }
-
+// add stars for Restaurant rating
   addStarRating=()=>{
     const starTotal = 10
     const starprocenti = (this.props.locationDetails.rating / starTotal)*100
     const starPorcentiRounded = `${(Math.round(starprocenti / 10) * 10)}%`;
     return starPorcentiRounded
   }
+// get current Restaurant categorie
   getRestaurantCategories=()=>{
     this.props.searchMarker.categories.map(categorie=>{
       return console.log(categorie.name)
@@ -23,6 +24,7 @@ class InfoWindow extends Component {
   render(){
     const locationDetails=this.props.locationDetails
     const searchMarker = this.props.searchMarker
+  // if array has no address, photo, working hours or restaurant categorie of current Restaurant - show the message
     let adrese = searchMarker.location.address ?
     searchMarker.location.address : 'No address';
     const photo = locationDetails.bestPhoto ?
