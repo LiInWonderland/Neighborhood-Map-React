@@ -1,8 +1,8 @@
 {
-  "name": "my-app",
+  "name": "Neighborhood-Map-React",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https:///LiInWonderland.github.io/Neighborhood-Map-React",
+  "homepage": "https://liinwonderland.github.io/Neighborhood-Map-React/",
   "dependencies": {
     "bootstrap": "^3.3.7",
     "gsap": "^2.0.1",
