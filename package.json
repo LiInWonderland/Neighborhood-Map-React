@@ -2,10 +2,9 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https:///liinwonderland.github.io/Neighborhood-Map-React",
+  "homepage": "https:///LiInWonderland.github.io/Neighborhood-Map-React",
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "gh-pages": "^1.2.0",
     "gsap": "^2.0.1",
     "react": "^16.4.2",
     "react-bootstrap": "^0.32.1",
@@ -21,8 +20,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "predeploy": "npm run build",
-    "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "gh-pages": "^1.2.0"
+  }
 }
