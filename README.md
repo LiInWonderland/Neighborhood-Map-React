@@ -17,7 +17,7 @@ This is a React app, created from scrach by Liene Tunne as part of Udacity Nanod
 - View app in different display sizes;
 
 ## Getting Started
-1. Frok or download this app from
+1. Fork or download this app from
 [here](https://github.com/lienetunne/Neighborhood-Map-React-)
 2. Change YOUR-API-KEY to yours
 3. Open the root folder of the app in a terminal
